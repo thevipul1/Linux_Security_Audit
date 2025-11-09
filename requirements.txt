@@ -1,0 +1,48 @@
+# 🐍 Python Dependencies
+# Core Framework & Functionality
+Jinja2==3.1.4              # Modern HTML template engine for professional reports
+paramiko==3.4.0            # SSH client library for remote scanning capabilities
+psutil==5.9.8              # System and process utilities for monitoring
+PyYAML==6.0.1              # YAML configuration file parsing
+colorama==0.4.6            # Cross-platform colored terminal output
+requests==2.31.0           # HTTP library for web features and API integration
+packaging==23.2            # Version comparison and package utilities
+
+# Development & Testing (Optional)
+pytest==7.4.3              # Testing framework
+pytest-cov==4.1.0          # Test coverage reporting
+black==23.9.1              # Code formatting
+flake8==6.1.0              # Code linting
+mypy==1.5.1                # Static type checking
+
+# Documentation (Optional)
+mkdocs==1.5.3              # Documentation site generator
+mkdocs-material==9.4.1     # Material design for documentation
+
+# 🖥️ System Requirements
+
+## Operating System
+- Linux (Primary) - Kali Linux, Ubuntu 20.04+, Debian 11+, CentOS 8+
+- Windows - WSL2 with Ubuntu/Kali distribution
+- macOS - With homebrew and Linux-like environment
+
+## Python Environment
+- Python 3.8 or higher
+- pip package manager
+- virtualenv (recommended)
+
+## System Packages (Linux)
+### Debian/Ubuntu/Kali Linux:
+```bash
+sudo apt update && sudo apt install -y \
+  python3 \
+  python3-pip \
+  python3-venv \
+  git \
+  ufw \
+  fail2ban \
+  auditd \
+  openssh-server \
+  sudo \
+  curl \
+  wget

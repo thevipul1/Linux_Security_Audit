@@ -1,0 +1,119 @@
+2025-11-04 09:40:45,697 - INFO - Starting security scan...
+2025-11-04 09:40:46,168 - INFO - Scan completed. Report: Security Audit Report - 2025-11-04T09:40:46.168573
+==================================================
+
+❌ SSH-001: SSH Root Login Disabled
+   Status: FAIL | Severity: HIGH
+   Evidence: Directive missing
+   Fix: remediations/ssh_disable_root.sh
+
+❌ NET-001: UFW Firewall Active
+   Status: FAIL | Severity: HIGH
+   Evidence: Status: inactive
+   Fix: remediations/ufw_enable.sh
+
+❌ SYS-001: Unattended Upgrades Installed
+   Status: FAIL | Severity: MEDIUM
+   Evidence: Not installed
+   Fix: remediations/install_unattended_upgrades.sh
+
+✅ FILE-001: Unusual SUID Files
+   Status: PASS | Severity: MEDIUM
+   Evidence: Found 0 unusual SUID files: []
+
+✅ FILE-002: World Writable Directories
+   Status: PASS | Severity: HIGH
+   Evidence: Found 0 world-writable directories: []
+
+
+Summary: 2 passed, 3 failed, 0 warnings
+
+2025-11-04 09:40:46,267 - INFO - Starting security scan...
+2025-11-04 09:40:46,359 - INFO - Scan completed. Report: outputs/reports/security_audit.html
+2025-11-04 09:40:46,456 - INFO - Starting remediation...
+2025-11-04 09:40:46,456 - INFO - No scan results available, generating basic hardening script...
+2025-11-04 09:40:46,457 - INFO - Generated basic hardening script: remediations/basic_hardening.sh
+2025-11-04 09:41:51,494 - INFO - Starting security scan...
+2025-11-04 09:41:51,588 - INFO - Scan completed. Report: Security Audit Report - 2025-11-04T09:41:51.588071
+==================================================
+
+❌ SSH-001: SSH Root Login Disabled
+   Status: FAIL | Severity: HIGH
+   Evidence: Directive missing
+   Fix: remediations/ssh_disable_root.sh
+
+❌ NET-001: UFW Firewall Active
+   Status: FAIL | Severity: HIGH
+   Evidence: Status: inactive
+   Fix: remediations/ufw_enable.sh
+
+❌ SYS-001: Unattended Upgrades Installed
+   Status: FAIL | Severity: MEDIUM
+   Evidence: Not installed
+   Fix: remediations/install_unattended_upgrades.sh
+
+✅ FILE-001: Unusual SUID Files
+   Status: PASS | Severity: MEDIUM
+   Evidence: Found 0 unusual SUID files: []
+
+✅ FILE-002: World Writable Directories
+   Status: PASS | Severity: HIGH
+   Evidence: Found 0 world-writable directories: []
+
+
+Summary: 2 passed, 3 failed, 0 warnings
+
+2025-11-04 09:49:08,520 - INFO - Starting remediation...
+2025-11-04 09:49:08,521 - INFO - No scan results available, generating basic hardening script...
+2025-11-04 09:49:08,521 - INFO - Generated basic hardening script: remediations/basic_hardening.sh
+2025-11-04 09:49:18,711 - INFO - Starting remediation...
+2025-11-04 09:49:18,711 - INFO - No scan results available, generating basic hardening script...
+2025-11-04 09:49:18,712 - INFO - Generated basic hardening script: remediations/basic_hardening.sh
+2025-11-04 09:49:18,712 - INFO - To apply basic hardening, run: sudo ./remediations/basic_hardening.sh
+2025-11-04 09:58:59,924 - INFO - Starting security scan...
+2025-11-04 09:59:00,011 - INFO - Scan completed. Report: outputs/reports/security_scan.json
+2025-11-04 10:12:25,373 - INFO - Starting security scan...
+2025-11-04 10:12:25,462 - INFO - Scan completed. Report: outputs/reports/secure_scan.json
+2025-11-04 10:12:25,561 - INFO - Starting security scan...
+2025-11-04 10:12:25,656 - INFO - Scan completed. Report: outputs/reports/secure_scan.html
+2025-11-09 11:48:40,695 - INFO - Starting security scan...
+2025-11-09 11:48:40,824 - INFO - Scan completed. Report: Security Audit Report - 2025-11-09T11:48:40.824685
+==================================================
+
+❌ SSH-001: SSH Root Login Disabled
+   Status: FAIL | Severity: HIGH
+   Evidence: Directive missing
+   Fix: remediations/ssh_disable_root.sh
+
+✅ NET-001: UFW Firewall Active
+   Status: PASS | Severity: HIGH
+   Evidence: Status: active
+
+❌ SYS-001: Unattended Upgrades Installed
+   Status: FAIL | Severity: MEDIUM
+   Evidence: Not installed
+   Fix: remediations/install_unattended_upgrades.sh
+
+✅ FILE-001: Unusual SUID Files
+   Status: PASS | Severity: MEDIUM
+   Evidence: Found 0 unusual SUID files: []
+
+✅ FILE-002: World Writable Directories
+   Status: PASS | Severity: HIGH
+   Evidence: Found 0 world-writable directories: []
+
+
+Summary: 3 passed, 2 failed, 0 warnings
+Security Score: 61.5/100
+
+2025-11-09 11:48:40,925 - INFO - Starting security scan...
+2025-11-09 11:48:41,037 - INFO - Scan completed. Report: report.html
+2025-11-09 11:48:41,135 - INFO - Starting remediation...
+2025-11-09 11:48:41,136 - INFO - No scan results available, generating basic hardening script...
+2025-11-09 11:48:41,138 - INFO - Generated basic hardening script: remediations/basic_hardening.sh
+2025-11-09 11:48:41,221 - INFO - Starting remediation...
+2025-11-09 11:48:41,221 - INFO - No scan results available, generating basic hardening script...
+2025-11-09 11:48:41,222 - INFO - Generated basic hardening script: remediations/basic_hardening.sh
+2025-11-09 11:48:41,222 - INFO - To apply basic hardening, run: sudo ./remediations/basic_hardening.sh
+2025-11-09 12:06:25,437 - INFO - Starting security scan...
+2025-11-09 12:06:25,591 - INFO - Scan completed. Report: outputs/reports/modern_scan.html
