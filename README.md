@@ -56,7 +56,7 @@ python src/main.py --profile webserver --report pdf
 
 ### Method 1: Direct Clone
 ```bash
-git clone https://github.com/thevipull/Linux_Security_Audit.git
+git clone https://github.com/thevipul1/Linux_Security_Audit.git
 cd Linux_Security_Audit
 pip install -r requirements.txt
 ```
@@ -70,7 +70,7 @@ docker run -v /etc:/host/etc linux-security-audit --scan basic
 ### Method 3: System Package (Future)
 ```bash
 # Coming soon
-wget https://github.com/thevipull/Linux_Security_Audit/releases/latest/linux-security-audit.deb
+wget https://github.com/thevipul1/Linux_Security_Audit/releases/latest/linux-security-audit.deb
 sudo dpkg -i linux-security-audit.deb
 ```
 
@@ -189,7 +189,7 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 
 ### Development Setup
 ```bash
-git clone https://github.com/thevipull/Linux_Security_Audit.git
+git clone https://github.com/thevipul1/Linux_Security_Audit.git
 cd Linux_Security_Audit
 python -m venv venv
 source venv/bin/activate
@@ -212,9 +212,9 @@ This tool is designed for educational and authorized security auditing purposes 
 ## 🆘 Support
 
 - 📖 [Documentation](docs/)
-- 🐛 [Report Issues](https://github.com/thevipull/Linux_Security_Audit/issues)
-- 💬 [Discussions](https://github.com/thevipull/Linux_Security_Audit/discussions)
-- 📧 Email: [Your Email]
+- 🐛 [Report Issues](https://github.com/thevipul1/Linux_Security_Audit/issues)
+- 💬 [Discussions](https://github.com/thevipul1/Linux_Security_Audit/discussions)
+- 📧 Email: vipulpal174@gmail.com 
 
 ---
 
@@ -223,23 +223,23 @@ This tool is designed for educational and authorized security auditing purposes 
 
 ## Key Enhancements Made:
 
-1. **Professional Header** with badges for license, Python version, and platform
-2. **Clear Features List** highlighting key capabilities
-3. **Multiple Installation Methods** for different use cases
-4. **Comprehensive Usage Examples** with real command examples
-5. **Scan Categories Table** showing what the tool checks
-6. **Project Structure** visualization
-7. **Sample Output** to show users what to expect
-8. **Contribution Guidelines** section to encourage community involvement
-9. **Professional Disclaimer** for responsible usage
-10. **Support Section** with multiple contact options
+1. Professional Header with badges for license, Python version, and platform
+2. Clear Features List highlighting key capabilities
+3. Multiple Installation Methods for different use cases
+4. Comprehensive Usage Examples with real command examples
+5. Scan Categories Table showing what the tool checks
+6. Project Structure visualization
+7. Sample Output to show users what to expect
+8. Contribution Guidelines section to encourage community involvement
+9. Professional Disclaimer for responsible usage
+10. Support Section with multiple contact options
 
 ## Next Steps:
 
-1. **Copy this content** to your `README.md` file
-2. **Customize** the email, support links, and specific features
-3. **Add actual command examples** once you start building the tool
-4. **Include screenshots** of reports when you have them
-5. **Update the features list** as you develop more capabilities
+1. Copy this content to your `README.md` file
+2. Customize the email, support links, and specific features
+3. Add actual command examples once you start building the tool
+4. Include screenshots of reports when you have them
+5. Update the features list as you develop more capabilities
 
 Would you like me to help you create any specific sections in more detail, like the configuration files or contribution guidelines?
