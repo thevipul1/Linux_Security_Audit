@@ -26,7 +26,7 @@ Automated Linux security scanner that finds and fixes common misconfigurations w
 
 ```bash
 # Clone the repository
-git clone https://github.com/thevipull/Linux_Security_Audit.git
+git clone https://github.com/thevipul1/Linux_Security_Audit.git
 cd Linux_Security_Audit
 
 # Install dependencies
