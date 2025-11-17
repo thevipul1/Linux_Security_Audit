@@ -140,7 +140,7 @@ python src/main.py --config custom_profile.yaml --verbose
 │   ├── logs
 │   │   └── audit.log
 │   └── reports
-│       ├── cybersecurity_audit.html
+│       ├── security_audit.html
 │       ├── debug_scan.json
 │       └── secure_scan.json
 ├── readme.txt
