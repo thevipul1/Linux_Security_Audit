@@ -1,0 +1,62 @@
+{
+  "metadata": {
+    "timestamp": "2025-11-04T10:12:25.461761",
+    "tool": "Linux Security Audit Tool",
+    "version": "1.0"
+  },
+  "summary": {
+    "total_checks": 5,
+    "passed": 2,
+    "failed": 3,
+    "warnings": 0,
+    "error": 0,
+    "security_score": 38.5
+  },
+  "results": [
+    {
+      "id": "SSH-001",
+      "title": "SSH Root Login Disabled",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "description": "PermitRootLogin directive not found",
+      "remediation": "remediations/ssh_disable_root.sh",
+      "evidence": "Directive missing"
+    },
+    {
+      "id": "NET-001",
+      "title": "UFW Firewall Active",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "description": "UFW firewall should be enabled",
+      "remediation": "remediations/ufw_enable.sh",
+      "evidence": "Status: inactive"
+    },
+    {
+      "id": "SYS-001",
+      "title": "Unattended Upgrades Installed",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "description": "Automatic security updates should be enabled",
+      "remediation": "remediations/install_unattended_upgrades.sh",
+      "evidence": "Not installed"
+    },
+    {
+      "id": "FILE-001",
+      "title": "Unusual SUID Files",
+      "status": "PASS",
+      "severity": "MEDIUM",
+      "description": "Unusual SUID files can be security risks",
+      "remediation": "remediations/audit_suid_files.sh",
+      "evidence": "Found 0 unusual SUID files: []"
+    },
+    {
+      "id": "FILE-002",
+      "title": "World Writable Directories",
+      "status": "PASS",
+      "severity": "HIGH",
+      "description": "World writable directories outside /tmp are security risks",
+      "remediation": "remediations/secure_permissions.sh",
+      "evidence": "Found 0 world-writable directories: []"
+    }
+  ]
+}

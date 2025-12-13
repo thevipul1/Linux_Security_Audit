@@ -1,0 +1,58 @@
+# Linux Security Audit Tool Configuration
+version: 1.0
+
+# Check Configuration
+checks:
+  ssh:
+    enabled: true
+    severity: high
+  firewall:
+    enabled: true
+    severity: high
+  updates:
+    enabled: true
+    severity: medium
+  filesystem:
+    enabled: true
+    severity: high
+  authentication:
+    enabled: true
+    severity: medium
+  kernel:
+    enabled: true
+    severity: high
+  network:
+    enabled: true
+    severity: medium
+
+# Remediation Settings
+remediation:
+  auto_apply: false
+  backup_files: true
+  confirm_changes: true
+  dry_run_first: true
+
+# Reporting Settings
+reporting:
+  formats:
+    - text
+    - html
+    - json
+  default_format: html
+  output_dir: ./outputs/reports
+  include_timestamp: true
+
+# Logging Settings
+logging:
+  level: INFO
+  file: ./outputs/logs/audit.log
+  max_size: 10MB
+  backup_count: 5
+
+# Security Standards
+compliance:
+  cis:
+    enabled: true
+    version: "2.0.0"
+  nist:
+    enabled: false

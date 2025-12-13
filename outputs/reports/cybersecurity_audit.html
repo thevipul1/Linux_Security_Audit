@@ -1,0 +1,1723 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Security Audit Report - CyberShield v2.0</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        :root {
+            --primary: #0066cc;
+            --primary-dark: #004499;
+            --primary-light: #4d94ff;
+            --success: #00cc66;
+            --warning: #ff9900;
+            --danger: #ff3333;
+            --critical: #cc0000;
+            --info: #66ccff;
+            --dark: #1a1a1a;
+            --darker: #0d0d0d;
+            --light: #f8f9fa;
+            --lighter: #ffffff;
+            --gray: #6c757d;
+            --border: #dee2e6;
+            --sidebar: #2c3e50;
+            --sidebar-hover: #34495e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            color: var(--lighter);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(180deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            pointer-events: none;
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(20px, 20px); }
+        }
+        
+        .glow-effect {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+            opacity: 0.1;
+            filter: blur(50px);
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            animation: glowPulse 8s ease-in-out infinite;
+        }
+        
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.05; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.15; transform: translate(-50%, -50%) scale(1.2); }
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(13, 17, 28, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            margin: 20px;
+            position: relative;
+            animation: containerSlideIn 0.8s ease-out;
+        }
+        
+        @keyframes containerSlideIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+            background: linear-gradient(135deg, 
+                rgba(0, 102, 204, 0.9) 0%, 
+                rgba(0, 68, 153, 0.8) 50%, 
+                rgba(13, 17, 28, 0.9) 100%);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(77, 148, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 204, 102, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 51, 51, 0.15) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            animation: headerContentFade 1s ease-out 0.3s both;
+        }
+        
+        @keyframes headerContentFade {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.4);
+            animation: logoSpin 15s linear infinite;
+        }
+        
+        @keyframes logoSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #a0c8ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 10px rgba(160, 200, 255, 0.5); }
+            100% { text-shadow: 0 0 20px rgba(160, 200, 255, 0.8), 0 0 30px rgba(160, 200, 255, 0.6); }
+        }
+        
+        .header-subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .timestamp {
+            font-size: 0.9em;
+            opacity: 0.7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            background: rgba(25, 30, 45, 0.9);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px 20px;
+            backdrop-filter: blur(10px);
+            animation: sidebarSlideIn 0.6s ease-out 0.2s both;
+        }
+        
+        @keyframes sidebarSlideIn {
+            0% { opacity: 0; transform: translateX(-20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        
+        .nav-section {
+            margin-bottom: 30px;
+        }
+        
+        .nav-title {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary-light);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 5px;
+            color: var(--light);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .nav-item:hover::before, .nav-item.active::before {
+            left: 100%;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: rgba(0, 102, 204, 0.2);
+            color: var(--primary-light);
+            transform: translateX(5px);
+        }
+        
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        .main-content {
+            padding: 30px;
+            background: rgba(13, 17, 28, 0.8);
+            animation: mainContentFade 0.8s ease-out 0.4s both;
+        }
+        
+        @keyframes mainContentFade {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        .overview-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .overview-card {
+            background: rgba(25, 30, 45, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: cardSlideUp 0.6s ease-out both;
+        }
+        
+        .overview-card:nth-child(1) { animation-delay: 0.5s; }
+        .overview-card:nth-child(2) { animation-delay: 0.6s; }
+        .overview-card:nth-child(3) { animation-delay: 0.7s; }
+        .overview-card:nth-child(4) { animation-delay: 0.8s; }
+        
+        @keyframes cardSlideUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .overview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+        }
+        
+        .overview-card.critical::before { background: linear-gradient(90deg, var(--critical) 0%, #ff6666 100%); }
+        .overview-card.high::before { background: linear-gradient(90deg, var(--danger) 0%, #ff6666 100%); }
+        .overview-card.medium::before { background: linear-gradient(90deg, var(--warning) 0%, #ffcc66 100%); }
+        .overview-card.low::before { background: linear-gradient(90deg, var(--success) 0%, #66ff99 100%); }
+        
+        .overview-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .overview-card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .card-value {
+            font-size: 2.5em;
+            font-weight: 800;
+            margin: 10px 0;
+            background: linear-gradient(135deg, #ffffff 0%, #a0c8ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .overview-card:hover .card-value {
+            transform: scale(1.05);
+        }
+        
+        .card-label {
+            color: var(--gray);
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .score-section {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .score-card {
+            background: linear-gradient(135deg, rgba(25, 30, 45, 0.8) 0%, rgba(40, 45, 60, 0.8) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            animation: scoreCardPulse 0.8s ease-out 0.9s both;
+        }
+        
+        @keyframes scoreCardPulse {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        
+        .score-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .score-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .score-value {
+            font-size: 4em;
+            font-weight: 800;
+            margin: 20px 0;
+            background: linear-gradient(135deg, var(--success) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: scoreValuePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes scoreValuePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .score-value.critical { 
+            background: linear-gradient(135deg, var(--critical) 0%, var(--danger) 100%);
+            animation: scoreValueCritical 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes scoreValueCritical {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+        
+        .score-value.high { 
+            background: linear-gradient(135deg, var(--danger) 0%, var(--warning) 100%);
+            animation: scoreValueHigh 2s ease-in-out infinite;
+        }
+        
+        .score-value.medium { 
+            background: linear-gradient(135deg, var(--warning) 0%, #ffcc00 100%);
+        }
+        
+        .risk-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9em;
+            margin-top: 10px;
+            backdrop-filter: blur(10px);
+            animation: badgePulse 3s infinite;
+        }
+        
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 0 5px rgba(0,0,0,0.2); }
+            50% { box-shadow: 0 0 15px currentColor; }
+        }
+        
+        .risk-critical { 
+            background: rgba(204, 0, 0, 0.2); 
+            color: #ff6666; 
+            border: 1px solid rgba(204, 0, 0, 0.3);
+            animation: criticalPulse 1.5s infinite;
+        }
+        
+        @keyframes criticalPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .risk-high { 
+            background: rgba(255, 51, 51, 0.2); 
+            color: #ff6666; 
+            border: 1px solid rgba(255, 51, 51, 0.3);
+        }
+        
+        .risk-medium { 
+            background: rgba(255, 153, 0, 0.2); 
+            color: #ffcc66; 
+            border: 1px solid rgba(255, 153, 0, 0.3);
+        }
+        
+        .risk-low { 
+            background: rgba(0, 204, 102, 0.2); 
+            color: #66ff99; 
+            border: 1px solid rgba(0, 204, 102, 0.3);
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            animation: chartsFadeIn 1s ease-out 1s both;
+        }
+        
+        @keyframes chartsFadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .chart-container {
+            background: rgba(25, 30, 45, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .chart-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .chart-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section {
+            margin: 40px 0;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 25px;
+            animation: sectionHeaderSlide 0.6s ease-out 1.1s both;
+        }
+        
+        @keyframes sectionHeaderSlide {
+            0% { opacity: 0; transform: translateX(-20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .control-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+        }
+        
+        .search-box {
+            padding: 10px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--light);
+            backdrop-filter: blur(10px);
+            min-width: 250px;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 2px rgba(77, 148, 255, 0.2);
+            transform: scale(1.02);
+        }
+        
+        .search-box::placeholder {
+            color: var(--gray);
+        }
+        
+        .findings-grid {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .finding-card {
+            background: rgba(25, 30, 45, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: findingCardSlide 0.5s ease-out both;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .finding-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .finding-card.critical::before { background: var(--critical); }
+        .finding-card.high::before { background: var(--danger); }
+        .finding-card.medium::before { background: var(--warning); }
+        .finding-card.low::before { background: var(--success); }
+        
+        .finding-card:hover::before {
+            transform: scaleY(1);
+        }
+        
+        @keyframes findingCardSlide {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .finding-card:nth-child(odd) {
+            animation-delay: 0.1s;
+        }
+        
+        .finding-card:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+        
+        .finding-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .finding-header {
+            display: flex;
+            justify-content: between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+        
+        .finding-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--light);
+            flex: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .finding-card:hover .finding-title {
+            color: var(--primary-light);
+        }
+        
+        .finding-meta {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+        
+        .finding-card:hover .status-badge {
+            transform: scale(1.05);
+        }
+        
+        .status-pass { background: rgba(0, 204, 102, 0.2); color: var(--success); border: 1px solid rgba(0, 204, 102, 0.3); }
+        .status-fail { background: rgba(255, 51, 51, 0.2); color: var(--danger); border: 1px solid rgba(255, 51, 51, 0.3); }
+        .status-warn { background: rgba(255, 153, 0, 0.2); color: var(--warning); border: 1px solid rgba(255, 153, 0, 0.3); }
+        
+        .severity-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .finding-card:hover .severity-badge {
+            transform: scale(1.05);
+        }
+        
+        .severity-critical { background: var(--critical); }
+        .severity-high { background: var(--danger); }
+        .severity-medium { background: var(--warning); }
+        .severity-low { background: var(--success); }
+        .severity-info { background: var(--info); }
+        
+        .finding-content {
+            margin: 15px 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, margin 0.3s ease;
+        }
+        
+        .finding-card.active .finding-content {
+            max-height: 500px;
+            margin: 15px 0;
+        }
+        
+        .evidence {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: var(--gray);
+        }
+        
+        .remediation {
+            background: rgba(0, 102, 204, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px dashed var(--primary);
+            margin-top: 10px;
+            font-size: 0.9em;
+            animation: remediationPulse 2s infinite;
+        }
+        
+        @keyframes remediationPulse {
+            0%, 100% { border-color: var(--primary); }
+            50% { border-color: var(--primary-light); }
+        }
+        
+        .recommendations-section {
+            background: linear-gradient(135deg, rgba(25, 30, 45, 0.8) 0%, rgba(40, 45, 60, 0.8) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 40px 0;
+            animation: recommendationsSlide 0.6s ease-out 1.2s both;
+        }
+        
+        @keyframes recommendationsSlide {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .recommendation-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+            animation: recommendationCardSlide 0.5s ease-out both;
+        }
+        
+        .recommendation-card:nth-child(odd) {
+            animation-delay: 0.1s;
+        }
+        
+        .recommendation-card:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+        
+        @keyframes recommendationCardSlide {
+            0% { opacity: 0; transform: translateX(-20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        
+        .recommendation-card.critical { border-left-color: var(--critical); }
+        .recommendation-card.high { border-left-color: var(--danger); }
+        .recommendation-card.medium { border-left-color: var(--warning); }
+        .recommendation-card.low { border-left-color: var(--success); }
+        
+        .recommendation-card:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 0.9em;
+            animation: footerFade 0.8s ease-out 1.3s both;
+        }
+        
+        @keyframes footerFade {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+        
+        @keyframes modalFadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        .modal-content {
+            background: rgba(13, 17, 28, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            backdrop-filter: blur(20px);
+            animation: modalContentSlide 0.3s ease-out;
+        }
+        
+        @keyframes modalContentSlide {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.5s ease;
+            transform: rotate(90deg);
+            transform-origin: 50% 50%;
+        }
+        
+        @media (max-width: 1200px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+            
+            .score-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .overview-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .control-group {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    <div class="glow-effect"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                </div>
+                <h1>Enterprise Security Audit</h1>
+                <p class="header-subtitle">Comprehensive System Security Assessment & Compliance Report</p>
+                <p class="timestamp">
+                    <i class="fas fa-clock"></i>
+                    Generated: 2025-12-13T20:20:48.415491
+                </p>
+            </div>
+        </div>
+        
+        <div class="dashboard">
+            <!-- Sidebar Navigation -->
+            <div class="sidebar">
+                <div class="nav-section">
+                    <div class="nav-title">Dashboard</div>
+                    <a href="#overview" class="nav-item active">
+                        <i class="fas fa-chart-dashboard"></i>
+                        Overview
+                    </a>
+                    <a href="#findings" class="nav-item">
+                        <i class="fas fa-search"></i>
+                        Security Findings
+                    </a>
+                    <a href="#compliance" class="nav-item">
+                        <i class="fas fa-clipboard-check"></i>
+                        Compliance
+                    </a>
+                    <a href="#recommendations" class="nav-item">
+                        <i class="fas fa-lightbulb"></i>
+                        Recommendations
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Quick Actions</div>
+                    <a href="#export" class="nav-item">
+                        <i class="fas fa-download"></i>
+                        Export Report
+                    </a>
+                    <a href="#remediate" class="nav-item">
+                        <i class="fas fa-tools"></i>
+                        Remediation Guide
+                    </a>
+                    <a href="#settings" class="nav-item">
+                        <i class="fas fa-cog"></i>
+                        Report Settings
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">System Info</div>
+                    <div class="nav-item">
+                        <i class="fas fa-server"></i>
+                        14 Security Controls
+                    </div>
+                    <div class="nav-item">
+                        <i class="fas fa-shield-alt"></i>
+                        62.3/100 Security Score
+                    </div>
+                    <div class="nav-item">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        3 Issues Found
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Score Section - NOW AT THE TOP -->
+                <div class="score-section">
+                    <div class="score-card">
+                        <div class="score-content">
+                            <div class="card-label">Overall Security Score</div>
+                            <div class="score-value score-high">62.3</div>
+                            <div class="risk-badge risk-high">
+                                <i class="fas fa-times-circle"></i>
+                                HIGH RISK LEVEL
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="charts-grid">
+                        <div class="chart-container">
+                            <div class="chart-title">
+                                <i class="fas fa-chart-pie"></i>
+                                Findings by Severity
+                            </div>
+                            <canvas id="severityChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <div class="chart-title">
+                                <i class="fas fa-chart-bar"></i>
+                                Compliance Status
+                            </div>
+                            <canvas id="complianceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Overview Cards - NOW BELOW SCORE SECTION -->
+                <div class="overview-cards">
+                    <div class="overview-card">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: rgba(0, 204, 102, 0.2); color: var(--success);">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="card-value">7</div>
+                        <div class="card-label">Controls Passed</div>
+                    </div>
+                    
+                    <div class="overview-card critical">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: rgba(204, 0, 0, 0.2); color: var(--critical);">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                        </div>
+                        <div class="card-value">3</div>
+                        <div class="card-label">Controls Failed</div>
+                    </div>
+                    
+                    <div class="overview-card medium">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: rgba(255, 153, 0, 0.2); color: var(--warning);">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                        </div>
+                        <div class="card-value">2</div>
+                        <div class="card-label">Warnings</div>
+                    </div>
+                    
+                    <div class="overview-card">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: rgba(0, 102, 204, 0.2); color: var(--primary-light);">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                        </div>
+                        <div class="card-value">50.0%</div>
+                        <div class="card-label">Compliance Score</div>
+                    </div>
+                </div>
+                
+                <!-- Security Findings Section -->
+                <div class="section" id="findings">
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            <i class="fas fa-search"></i>
+                            Security Findings
+                        </h2>
+                        <div class="controls">
+                            <div class="control-group">
+                                <select id="severityFilter" class="btn">
+                                    <option value="all">All Severities</option>
+                                    <option value="critical">Critical</option>
+                                    <option value="high">High</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="low">Low</option>
+                                </select>
+                                <select id="statusFilter" class="btn">
+                                    <option value="all">All Status</option>
+                                    <option value="pass">Passed</option>
+                                    <option value="fail">Failed</option>
+                                    <option value="warn">Warnings</option>
+                                </select>
+                            </div>
+                            <input type="text" id="searchBox" class="search-box" placeholder="Search findings...">
+                            <button class="btn btn-primary" onclick="exportReport()">
+                                <i class="fas fa-download"></i> Export
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="findings-grid">
+                        
+                        <div class="finding-card high" data-severity="high" data-status="pass">
+                            <div class="finding-header">
+                                <div class="finding-title">SSH Root Login Disabled</div>
+                                <div class="finding-meta">
+                                    
+                                    <span class="status-badge status-pass">
+                                        <i class="fas fa-check"></i> PASS
+                                    </span>
+                                    
+                                    <span class="severity-badge severity-high">
+                                        HIGH
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="finding-content">
+                                <div class="evidence">PermitRootLogin no</div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="finding-card high" data-severity="high" data-status="pass">
+                            <div class="finding-header">
+                                <div class="finding-title">UFW Firewall Active</div>
+                                <div class="finding-meta">
+                                    
+                                    <span class="status-badge status-pass">
+                                        <i class="fas fa-check"></i> PASS
+                                    </span>
+                                    
+                                    <span class="severity-badge severity-high">
+                                        HIGH
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="finding-content">
+                                <div class="evidence">Status: active</div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="finding-card medium" data-severity="medium" data-status="pass">
+                            <div class="finding-header">
+                                <div class="finding-title">Unattended Upgrades Installed & Active</div>
+                                <div class="finding-meta">
+                                    
+                                    <span class="status-badge status-pass">
+                                        <i class="fas fa-check"></i> PASS
+                                    </span>
+                                    
+                                    <span class="severity-badge severity-medium">
+                                        MEDIUM
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="finding-content">
+                                <div class="evidence">Package installed, service active and enabled, configuration present</div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="finding-card medium" data-severity="medium" data-status="pass">
+                            <div class="finding-header">
+                                <div class="finding-title">Unusual SUID Files</div>
+                                <div class="finding-meta">
+                                    
+                                    <span class="status-badge status-pass">
+                                        <i class="fas fa-check"></i> PASS
+                                    </span>
+                                    
+                                    <span class="severity-badge severity-medium">
+                                        MEDIUM
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="finding-content">
+                                <div class="evidence">No unusual SUID files found</div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="finding-card high" data-severity="high" data-status="pass">
+                            <div class="finding-header">
+                                <div class="finding-title">World Writable Directories</div>
+                                <div class="finding-meta">
+                                    
+                                    <span class="status-badge status-pass">
+                                        <i class="fas fa-check"></i> PASS
+                                    </span>
+                                    
+                                    <span class="severity-badge severity-high">
+                                        HIGH
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="finding-content">
+                                <div class="evidence">No world-writable directories found</div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="finding-card medium" data-severity="medium" data-status="fail">
+                            <div class="finding-header">
+                                <div class="finding-title">Password Policy Enforcement</div>
+                                <div class="finding-meta">
+                                    
+                                    <span class="status-badge status-fail">
+                                        <i class="fas fa-times"></i> FAIL
+                                    </span>
+                                    
+                                    <span class="severity-badge severity-medium">
+                                        MEDIUM
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="finding-content">
+                                <div class="evidence">PASS_MAX_DAYS too long: 99999 (should be <= 90); Password history not set to remember last 5 passwords; Minimum password length not enforced</div>
+                                
+                                <div class="remediation">
+                                    <strong><i class="fas fa-tools"></i> Remediation:</strong> remediations/enforce_password_policy.sh
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="finding-card medium" data-severity="medium" data-status="warn">
+                            <div class="finding-header">
+                                <div class="finding-title">Sudo Security Configuration</div>
+                                <div class="finding-meta">
+                                    
+                                    <span class="status-badge status-warn">
+                                        <i class="fas fa-exclamation-triangle"></i> WARN
+                                    </span>
+                                    
+                                    <span class="severity-badge severity-medium">
+                                        MEDIUM
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="finding-content">
+                                <div class="evidence">Sudo may not require password</div>
+                                
+                                <div class="remediation">
+                                    <strong><i class="fas fa-tools"></i> Remediation:</strong> remediations/secure_sudo.sh
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="finding-card high" data-severity="high" data-status="fail">
+                            <div class="finding-header">
+                                <div class="finding-title">Kernel Security Parameters</div>
+                                <div class="finding-meta">
+                                    
+                                    <span class="status-badge status-fail">
+                                        <i class="fas fa-times"></i> FAIL
+                                    </span>
+                                    
+                                    <span class="severity-badge severity-high">
+                                        HIGH
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="finding-content">
+                                <div class="evidence">Reverse path filtering disabled (should be 1)</div>
+                                
+                                <div class="remediation">
+                                    <strong><i class="fas fa-tools"></i> Remediation:</strong> remediations/harden_kernel.sh
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="finding-card medium" data-severity="medium" data-status="warn">
+                            <div class="finding-header">
+                                <div class="finding-title">SSH Protocol Security</div>
+                                <div class="finding-meta">
+                                    
+                                    <span class="status-badge status-warn">
+                                        <i class="fas fa-exclamation-triangle"></i> WARN
+                                    </span>
+                                    
+                                    <span class="severity-badge severity-medium">
+                                        MEDIUM
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="finding-content">
+                                <div class="evidence">SSH Protocol 2 not explicitly set</div>
+                                
+                                <div class="remediation">
+                                    <strong><i class="fas fa-tools"></i> Remediation:</strong> remediations/harden_ssh.sh
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="finding-card medium" data-severity="medium" data-status="pass">
+                            <div class="finding-header">
+                                <div class="finding-title">IP Forwarding Disabled</div>
+                                <div class="finding-meta">
+                                    
+                                    <span class="status-badge status-pass">
+                                        <i class="fas fa-check"></i> PASS
+                                    </span>
+                                    
+                                    <span class="severity-badge severity-medium">
+                                        MEDIUM
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="finding-content">
+                                <div class="evidence">IP forwarding disabled</div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="finding-card low" data-severity="low" data-status="pass">
+                            <div class="finding-header">
+                                <div class="finding-title">Failed Login Monitoring</div>
+                                <div class="finding-meta">
+                                    
+                                    <span class="status-badge status-pass">
+                                        <i class="fas fa-check"></i> PASS
+                                    </span>
+                                    
+                                    <span class="severity-badge severity-low">
+                                        LOW
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="finding-content">
+                                <div class="evidence">✅ No failed login attempts detected</div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="finding-card high" data-severity="high" data-status="fail">
+                            <div class="finding-header">
+                                <div class="finding-title">Suspicious Processes Detection</div>
+                                <div class="finding-meta">
+                                    
+                                    <span class="status-badge status-fail">
+                                        <i class="fas fa-times"></i> FAIL
+                                    </span>
+                                    
+                                    <span class="severity-badge severity-high">
+                                        HIGH
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="finding-content">
+                                <div class="evidence">🚨 Found 85 suspicious processes: kthreadd (PID:2, User:root), kworker/R-rcu_gp (PID:4, User:root), kworker/R-sync_wq (PID:5, User:root)</div>
+                                
+                                <div class="remediation">
+                                    <strong><i class="fas fa-tools"></i> Remediation:</strong> remediations/investigate_suspicious_processes.sh
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="finding-card medium" data-severity="medium" data-status="error">
+                            <div class="finding-header">
+                                <div class="finding-title">Unnecessary Open Ports</div>
+                                <div class="finding-meta">
+                                    
+                                    <span class="status-badge status-warn">
+                                        <i class="fas fa-exclamation-triangle"></i> WARN
+                                    </span>
+                                    
+                                    <span class="severity-badge severity-medium">
+                                        MEDIUM
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="finding-content">
+                                <div class="evidence">Could not retrieve listening ports</div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="finding-card high" data-severity="high" data-status="error">
+                            <div class="finding-header">
+                                <div class="finding-title">CVE Vulnerability Assessment</div>
+                                <div class="finding-meta">
+                                    
+                                    <span class="status-badge status-warn">
+                                        <i class="fas fa-exclamation-triangle"></i> WARN
+                                    </span>
+                                    
+                                    <span class="severity-badge severity-high">
+                                        HIGH
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="finding-content">
+                                <div class="evidence">Could not check for upgradable packages</div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <!-- Recommendations Section -->
+                <div class="recommendations-section" id="recommendations">
+                    <h2 class="section-title">
+                        <i class="fas fa-lightbulb"></i>
+                        Security Recommendations
+                    </h2>
+                    
+                    
+                    <div class="recommendation-card high">
+                        <div class="finding-header">
+                            <div class="finding-title">High Severity Remediation</div>
+                            <span class="severity-badge severity-high">
+                                HIGH
+                            </span>
+                        </div>
+                        <div class="finding-content">
+                            <p>Resolve 2 high severity findings</p>
+                            <div class="remediation">
+                                <strong>Recommended Action:</strong> Schedule remediation within 7 days
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recommendation-card medium">
+                        <div class="finding-header">
+                            <div class="finding-title">Security Monitoring</div>
+                            <span class="severity-badge severity-medium">
+                                MEDIUM
+                            </span>
+                        </div>
+                        <div class="finding-content">
+                            <p>Implement continuous security monitoring</p>
+                            <div class="remediation">
+                                <strong>Recommended Action:</strong> Deploy SIEM solution and enable real-time alerts
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recommendation-card low">
+                        <div class="finding-header">
+                            <div class="finding-title">Documentation Update</div>
+                            <span class="severity-badge severity-low">
+                                LOW
+                            </span>
+                        </div>
+                        <div class="finding-content">
+                            <p>Update security policies and procedures</p>
+                            <div class="remediation">
+                                <strong>Recommended Action:</strong> Review and refresh security documentation quarterly
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <!-- Footer -->
+                <div class="footer">
+                    <p><strong>CyberShield Security Audit Tool v2.0</strong></p>
+                    <p>Enterprise-Grade Security Assessment & Compliance Reporting</p>
+                    <p class="timestamp">Report generated on 2025-12-13T20:20:48.415491 | Confidential</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize charts and data
+        const resultsData = [{"description": "SSH should not allow direct root login", "evidence": "PermitRootLogin no", "id": "SSH-001", "remediation": "remediations/ssh_disable_root.sh", "severity": "HIGH", "status": "PASS", "title": "SSH Root Login Disabled"}, {"description": "UFW firewall should be enabled", "evidence": "Status: active", "id": "NET-001", "remediation": "remediations/ufw_enable.sh", "severity": "HIGH", "status": "PASS", "title": "UFW Firewall Active"}, {"description": "Automatic security updates are enabled and running", "evidence": "Package installed, service active and enabled, configuration present", "id": "SYS-001", "remediation": "remediations/install_unattended_upgrades.sh", "severity": "MEDIUM", "status": "PASS", "title": "Unattended Upgrades Installed \u0026 Active"}, {"description": "Unusual SUID files can be security risks", "evidence": "No unusual SUID files found", "id": "FILE-001", "remediation": "remediations/audit_suid_files.sh", "severity": "MEDIUM", "status": "PASS", "title": "Unusual SUID Files"}, {"description": "World writable directories outside /tmp are security risks", "evidence": "No world-writable directories found", "id": "FILE-002", "remediation": "remediations/secure_permissions.sh", "severity": "HIGH", "status": "PASS", "title": "World Writable Directories"}, {"description": "Strong password policies should be enforced", "evidence": "PASS_MAX_DAYS too long: 99999 (should be \u003c= 90); Password history not set to remember last 5 passwords; Minimum password length not enforced", "id": "AUTH-001", "remediation": "remediations/enforce_password_policy.sh", "severity": "MEDIUM", "status": "FAIL", "title": "Password Policy Enforcement"}, {"description": "Sudo should be configured with security best practices", "evidence": "Sudo may not require password", "id": "AUTH-002", "remediation": "remediations/secure_sudo.sh", "severity": "MEDIUM", "status": "WARN", "title": "Sudo Security Configuration"}, {"description": "Kernel should have security-hardened parameters", "evidence": "Reverse path filtering disabled (should be 1)", "id": "KERN-001", "remediation": "remediations/harden_kernel.sh", "severity": "HIGH", "status": "FAIL", "title": "Kernel Security Parameters"}, {"description": "SSH should use secure protocols and ciphers", "evidence": "SSH Protocol 2 not explicitly set", "id": "SSH-002", "remediation": "remediations/harden_ssh.sh", "severity": "MEDIUM", "status": "WARN", "title": "SSH Protocol Security"}, {"description": "IP forwarding should be disabled on workstations", "evidence": "IP forwarding disabled", "id": "NET-002", "remediation": "remediations/disable_ip_forwarding.sh", "severity": "MEDIUM", "status": "PASS", "title": "IP Forwarding Disabled"}, {"description": "Monitor and detect brute force attack attempts in authentication logs", "evidence": "\u2705 No failed login attempts detected", "id": "AUTH-003", "remediation": "remediations/configure_fail2ban.sh", "severity": "LOW", "status": "PASS", "title": "Failed Login Monitoring"}, {"description": "Detection of cryptocurrency miners, malware, and suspicious processes", "evidence": "\ud83d\udea8 Found 85 suspicious processes: kthreadd (PID:2, User:root), kworker/R-rcu_gp (PID:4, User:root), kworker/R-sync_wq (PID:5, User:root)", "id": "THREAT-001", "remediation": "remediations/investigate_suspicious_processes.sh", "severity": "HIGH", "status": "FAIL", "title": "Suspicious Processes Detection"}, {"description": "Identify unnecessary open network ports", "evidence": "Could not retrieve listening ports", "id": "NET-003", "remediation": "remediations/close_unused_ports.sh", "severity": "MEDIUM", "status": "ERROR", "title": "Unnecessary Open Ports"}, {"description": "Check for packages with known CVEs that need updates", "evidence": "Could not check for upgradable packages", "id": "VULN-001", "remediation": "remediations/update_vulnerable_packages.sh", "severity": "HIGH", "status": "ERROR", "title": "CVE Vulnerability Assessment"}];
+        const summaryData = {"compliance_score": 50.0, "failed": 3, "passed": 7, "priority_breakdown": {"critical": 0, "high": 2, "low": 0, "medium": 3}, "recommendations": [{"action": "Schedule remediation within 7 days", "description": "Resolve 2 high severity findings", "priority": "HIGH", "title": "High Severity Remediation"}, {"action": "Deploy SIEM solution and enable real-time alerts", "description": "Implement continuous security monitoring", "priority": "MEDIUM", "title": "Security Monitoring"}, {"action": "Review and refresh security documentation quarterly", "description": "Update security policies and procedures", "priority": "LOW", "title": "Documentation Update"}], "risk_level": "HIGH", "security_score": 62.3, "total_checks": 14, "warnings": 2};
+        
+        function initializeCharts() {
+            // Severity Distribution Chart
+            const severityCtx = document.getElementById('severityChart').getContext('2d');
+            const severityData = {
+                labels: ['Critical', 'High', 'Medium', 'Low', 'Info'],
+                datasets: [{
+                    data: [
+                        resultsData.filter(r => r.severity.toLowerCase() === 'critical').length,
+                        resultsData.filter(r => r.severity.toLowerCase() === 'high').length,
+                        resultsData.filter(r => r.severity.toLowerCase() === 'medium').length,
+                        resultsData.filter(r => r.severity.toLowerCase() === 'low').length,
+                        resultsData.filter(r => r.severity.toLowerCase() === 'info').length
+                    ],
+                    backgroundColor: [
+                        '#cc0000', '#ff3333', '#ff9900', '#00cc66', '#66ccff'
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#0d111c'
+                }]
+            };
+            
+            new Chart(severityCtx, {
+                type: 'doughnut',
+                data: severityData,
+                options: {
+                    responsive: true,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#f8f9fa',
+                                font: {
+                                    size: 11
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true,
+                        duration: 2000,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            });
+            
+            // Compliance Status Chart
+            const complianceCtx = document.getElementById('complianceChart').getContext('2d');
+            const complianceData = {
+                labels: ['Passed', 'Failed', 'Warnings'],
+                datasets: [{
+                    data: [
+                        summaryData.passed,
+                        summaryData.failed,
+                        summaryData.warnings
+                    ],
+                    backgroundColor: [
+                        '#00cc66', '#ff3333', '#ff9900'
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#0d111c'
+                }]
+            };
+            
+            new Chart(complianceCtx, {
+                type: 'bar',
+                data: complianceData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255,255,255,0.1)'
+                            },
+                            ticks: {
+                                color: '#f8f9fa'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#f8f9fa'
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            });
+        }
+        
+        // Filter functionality
+        function filterResults() {
+            const severityFilter = document.getElementById('severityFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            
+            document.querySelectorAll('.finding-card').forEach(card => {
+                const severity = card.getAttribute('data-severity');
+                const status = card.getAttribute('data-status');
+                const text = card.textContent.toLowerCase();
+                
+                const severityMatch = severityFilter === 'all' || severity === severityFilter;
+                const statusMatch = statusFilter === 'all' || status === statusFilter;
+                const searchMatch = searchTerm === '' || text.includes(searchTerm);
+                
+                if (severityMatch && statusMatch && searchMatch) {
+                    card.style.display = 'block';
+                    // Add animation for filtered cards
+                    card.style.animation = 'findingCardSlide 0.5s ease-out';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        // Expand/collapse finding details
+        function toggleFindingDetails(card) {
+            card.classList.toggle('active');
+        }
+        
+        // Export functionality
+        function exportReport() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `security-audit-report-${new Date().toISOString().split('T')[0]}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+            
+            // Add event listeners for filters
+            document.getElementById('severityFilter').addEventListener('change', filterResults);
+            document.getElementById('statusFilter').addEventListener('change', filterResults);
+            document.getElementById('searchBox').addEventListener('input', filterResults);
+            
+            // Add click event to finding cards to expand/collapse details
+            document.querySelectorAll('.finding-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    toggleFindingDetails(this);
+                });
+            });
+            
+            // Smooth scrolling for navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                        
+                        // Update active nav item
+                        document.querySelectorAll('.nav-item').forEach(nav => {
+                            nav.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                    }
+                });
+            });
+            
+            // Add scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe elements for scroll animations
+            document.querySelectorAll('.finding-card, .recommendation-card').forEach(el => {
+                el.style.animationPlayState = 'paused';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

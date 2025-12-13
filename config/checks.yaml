@@ -1,0 +1,71 @@
+# Security Check Definitions
+checks:
+  SSH-001:
+    title: "SSH Root Login Disabled"
+    description: "SSH should not allow direct root login"
+    category: "ssh"
+    severity: "high"
+    remediation: "remediations/ssh_disable_root.sh"
+    
+  SSH-002:
+    title: "SSH Protocol Security" 
+    description: "SSH should use secure protocols and ciphers"
+    category: "ssh"
+    severity: "medium"
+    remediation: "remediations/harden_ssh.sh"
+    
+  NET-001:
+    title: "UFW Firewall Active"
+    description: "UFW firewall should be enabled"
+    category: "firewall"
+    severity: "high"
+    remediation: "remediations/ufw_enable.sh"
+    
+  NET-002:
+    title: "IP Forwarding Disabled"
+    description: "IP forwarding should be disabled on workstations"
+    category: "network"
+    severity: "medium"
+    remediation: "remediations/disable_ip_forwarding.sh"
+    
+  SYS-001:
+    title: "Unattended Upgrades Installed & Active"
+    description: "Automatic security updates should be enabled"
+    category: "updates"
+    severity: "medium"
+    remediation: "remediations/install_unattended_upgrades.sh"
+    
+  FILE-001:
+    title: "Unusual SUID Files"
+    description: "Unusual SUID files can be security risks"
+    category: "filesystem"
+    severity: "medium"
+    remediation: "remediations/audit_suid_files.sh"
+    
+  FILE-002:
+    title: "World Writable Directories"
+    description: "World writable directories outside /tmp are security risks"
+    category: "filesystem"
+    severity: "high"
+    remediation: "remediations/secure_permissions.sh"
+    
+  AUTH-001:
+    title: "Password Policy Enforcement"
+    description: "Strong password policies should be enforced"
+    category: "authentication"
+    severity: "medium"
+    remediation: "remediations/enforce_password_policy.sh"
+    
+  AUTH-002:
+    title: "Sudo Security Configuration"
+    description: "Sudo should be configured with security best practices"
+    category: "authentication"
+    severity: "medium"
+    remediation: "remediations/secure_sudo.sh"
+    
+  KERN-001:
+    title: "Kernel Security Parameters"
+    description: "Kernel should have security-hardened parameters"
+    category: "kernel"
+    severity: "high"
+    remediation: "remediations/harden_kernel.sh"

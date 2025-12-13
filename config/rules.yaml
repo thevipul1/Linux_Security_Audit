@@ -1,0 +1,18 @@
+rules:
+  SSH-001:
+    title: "SSH Root Login Disabled"
+    description: "SSH should not allow direct root login"
+    severity: "HIGH"
+    check_type: "file_content"
+    file: "/etc/ssh/sshd_config"
+    pattern: "^PermitRootLogin\\s+no"
+    remediation: "remediations/ssh_disable_root.sh"
+  
+  NET-001:
+    title: "UFW Firewall Active"
+    description: "UFW firewall should be enabled"
+    severity: "HIGH"
+    check_type: "command"
+    command: "ufw status"
+    pattern: "Status: active"
+    remediation: "remediations/ufw_enable.sh"
