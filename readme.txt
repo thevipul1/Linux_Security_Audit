@@ -1,165 +1,142 @@
-Linux Security Audit 🔒
+# Linux Security Audit 🔒
 
-![GitHub](https://img.shields.io/badge/license-GPL--3.0-green)
-![Python](https://img.shields.io/badge/python-3.8+-blue)
+![License](https://img.shields.io/badge/license-GPL--3.0-green)
+![Python](https://img.shields.io/badge/python-3.8%2B-blue)
 ![Platform](https://img.shields.io/badge/platform-Linux-lightgrey)
 
-Automated Linux security scanner that finds and fixes common misconfigurations with professional reporting.
+**Linux Security Audit** is an automated, production‑ready security scanner for Linux systems that identifies **common misconfigurations**, optionally **remediates issues**, and generates **professional reports** suitable for audits and compliance reviews.
 
-## 🚀 Features
+---
 
-- Comprehensive Security Scanning: Audit SSH, password policies, file permissions, and more
-- **Auto-Remediation**: Automatically fix common security misconfigurations
-- **Professional Reporting**: Generate detailed HTML, PDF, and JSON reports
-- **Customizable Scans**: Create custom audit profiles for your environment
-- **Compliance Checking**: Check against CIS benchmarks and industry standards
-- **Non-Intrusive**: Read-only mode available for sensitive environments
+## ✨ Highlights
 
-## 📋 Quick Start
+* **Comprehensive Audits** — SSH, password policies, file permissions, kernel parameters, logging, and more
+* **Auto‑Remediation** — Safely fix common misconfigurations (opt‑in)
+* **Professional Reports** — HTML, PDF, and JSON outputs
+* **Profiles & Custom Rules** — Tailor scans for servers, workstations, or compliance needs
+* **Compliance‑Aware** — CIS‑style checks and industry best practices
+* **Safe by Design** — Read‑only mode for sensitive environments
+
+---
+
+## 🚀 Quick Start
 
 ### Prerequisites
-- Python 3.8 or higher
-- Linux system (tested on Ubuntu, CentOS, RHEL)
-- Root/sudo access (for auto-fixes)
+
+* Python **3.8+**
+* Linux (tested on **Ubuntu**, **CentOS**, **RHEL**)
+* `sudo`/root access *(only required for auto‑fixes)*
 
 ### Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/thevipul1/Linux_Security_Audit.git
-cd Linux_Security_Audit
+# Clone
+ git clone https://github.com/thevipul1/Linux_Security_Audit.git
+ cd Linux_Security_Audit
 
 # Install dependencies
-pip install -r requirements.txt
+ pip install -r requirements.txt
 
-# Run your first security audit
-python src/main.py --scan basic
+# Run a basic audit
+ python src/main.py --scan basic
 ```
 
-### Basic Usage
+---
+
+## 🧪 Usage
 
 ```bash
-# Run comprehensive security scan
+# Comprehensive scan
 python src/main.py --scan comprehensive
 
-# Scan with auto-fix enabled
+# Enable auto-fix
 python src/main.py --scan comprehensive --auto-fix
 
 # Generate HTML report only
 python src/main.py --scan basic --report html
 
-# Custom scan profile
+# Custom profile with PDF output
 python src/main.py --profile webserver --report pdf
 ```
 
-## 🛠️ Installation Details
+### Advanced Examples
 
-### Method 1: Direct Clone
+```bash
+# Production-safe scan (no changes)
+python src/main.py --scan production --read-only --report html,json
+
+# Use a custom configuration
+python src/main.py --config custom_profile.yaml --verbose
+
+# Schedule daily scan (cron)
+0 2 * * * /opt/Linux_Security_Audit/src/main.py --scan basic --report html --email admin@company.com
+```
+
+---
+
+## 🧩 Installation Options
+
+### 1) Direct Clone (Recommended)
+
 ```bash
 git clone https://github.com/thevipul1/Linux_Security_Audit.git
 cd Linux_Security_Audit
 pip install -r requirements.txt
 ```
 
-### Method 2: Docker
+### 2) Docker
+
 ```bash
 docker build -t linux-security-audit .
 docker run -v /etc:/host/etc linux-security-audit --scan basic
 ```
 
-### Method 3: System Package (Future)
+### 3) System Package *(Planned)*
+
 ```bash
 # Coming soon
 wget https://github.com/thevipul1/Linux_Security_Audit/releases/latest/linux-security-audit.deb
 sudo dpkg -i linux-security-audit.deb
 ```
 
-## 📊 Scan Categories
+---
 
-| Category | Checks | Auto-fix |
-|----------|--------|----------|
-| **SSH Security** | Protocol version, Root login, Key authentication | ✅ |
-| **Password Policies** | Password aging, Complexity requirements | ✅ |
-| **File Permissions** | World-writable files, SUID binaries | ✅ |
-| **Network Security** | Open ports, Firewall status | ⚠️ Partial |
-| **System Updates** | Security patches, Package versions | ❌ |
-| **Audit & Logging** | Auditd configuration, Log rotation | ✅ |
-| **Kernel Parameters** | sysctl security settings | ✅ |
+## 📊 Scan Coverage
 
-## 📝 Usage Examples
+| Category              | Examples                       | Auto‑Fix   |
+| --------------------- | ------------------------------ | ---------- |
+| **SSH Security**      | Root login, protocol, key auth | ✅          |
+| **Password Policies** | Aging, complexity              | ✅          |
+| **File Permissions**  | World‑writable, SUID           | ✅          |
+| **Network Security**  | Open ports, firewall           | ⚠️ Partial |
+| **System Updates**    | Security patches               | ❌          |
+| **Audit & Logging**   | auditd, log rotation           | ✅          |
+| **Kernel Hardening**  | `sysctl` parameters            | ✅          |
 
-### Basic Security Audit
-```bash
-python src/main.py --scan basic --output /tmp/security_report.html
-```
-
-### Production Server Scan
-```bash
-python src/main.py --scan production --auto-fix --report pdf,json
-```
-
-### Custom Scan Configuration
-```bash
-python src/main.py --config custom_profile.yaml --verbose
-```
-
-### Continuous Monitoring
-```bash
-# Add to crontab for daily scans
-0 2 * * * /opt/Linux_Security_Audit/src/main.py --scan basic --report html --email admin@company.com
-```
+---
 
 ## 📁 Project Structure
 
-```
-1_Linux_hardening_and_security_audit
-├── config
-│   └── rules.yaml
-├── debug_scan.py
-├── main.py
-├── modules
-│   ├── __init__.py
-│   ├── __pycache__
-│   │   ├── __init__.cpython-312.pyc
-│   │   ├── __init__.cpython-313.pyc
-│   │   ├── remediator.cpython-312.pyc
-│   │   ├── remediator.cpython-313.pyc
-│   │   ├── reporter.cpython-312.pyc
-│   │   ├── reporter.cpython-313.pyc
-│   │   ├── scanner.cpython-312.pyc
-│   │   ├── scanner.cpython-313.pyc
-│   │   ├── utils.cpython-312.pyc
-│   │   └── utils.cpython-313.pyc
-│   ├── remediator.py
-│   ├── reporter.py
-│   ├── scanner.py
-│   └── utils.py
-├── outputs
-│   ├── logs
-│   │   └── audit.log
-│   └── reports
-│       ├── debug_scan.json
-│       ├── modern_scan.html
-│       └── secure_scan.json
-├── readme.txt
-├── remediations
-│   ├── audit_suid_files.sh
-│   ├── basic_hardening.sh
-│   ├── install_unattended_upgrades.sh
-│   ├── secure_permissions.sh
-│   ├── ssh_disable_root.sh
-│   └── ufw_enable.sh
-├── requirements.txt
-├── rules
-│   └── __init__.py
-├── safety_check.py
-├── templates
-└── tests
-    └── __init__.py
-           # Usage examples
+```text
+Linux_Security_Audit/
+├── config/              # Rules & profiles
+│   └── rules.yaml
+├── modules/             # Core engine
+│   ├── scanner.py
+│   ├── remediator.py
+│   ├── reporter.py
+│   └── utils.py
+├── remediations/        # Safe fix scripts
+├── outputs/             # Logs & reports
+├── templates/           # Report templates
+├── tests/               # Unit tests
+├── src/main.py          # Entry point
+└── requirements.txt
 ```
 
-## 🎯 Sample Output
+---
+
+## 📌 Sample Output
 
 ```json
 {
@@ -183,11 +160,14 @@ python src/main.py --config custom_profile.yaml --verbose
 }
 ```
 
+---
+
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+Contributions are welcome! Please read **CONTRIBUTING.md** before submitting PRs.
 
-### Development Setup
+### Dev Setup
+
 ```bash
 git clone https://github.com/thevipul1/Linux_Security_Audit.git
 cd Linux_Security_Audit
@@ -196,40 +176,33 @@ source venv/bin/activate
 pip install -r requirements-dev.txt
 ```
 
-### Running Tests
+### Tests
+
 ```bash
 pytest tests/ -v
 ```
 
+---
+
 ## 📄 License
 
-This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) file for details.
-
-## ⚠️ Disclaimer
-
-This tool is designed for educational and authorized security auditing purposes only. Always ensure you have proper authorization before scanning systems. The authors are not responsible for any misuse or damage caused by this program.
-
-## 🆘 Support
-
-- 📖 [Documentation](docs/)
-- 🐛 [Report Issues](https://github.com/thevipul1/Linux_Security_Audit/issues)
-- 💬 [Discussions](https://github.com/thevipul1/Linux_Security_Audit/discussions)
-- 📧 Email: vipulpal174@gmail.com 
+Licensed under the **GPL‑3.0** — see the **LICENSE** file.
 
 ---
 
-**⭐ If you find this project useful, please give it a star on GitHub!**
-```
+## ⚠️ Disclaimer
 
-## Key Enhancements Made:
+This tool is intended **only for authorized security auditing and educational use**. Always obtain proper permission before scanning systems. The authors are not responsible for misuse or damage.
 
-1. Professional Header with badges for license, Python version, and platform
-2. Clear Features List highlighting key capabilities
-3. Multiple Installation Methods for different use cases
-4. Comprehensive Usage Examples with real command examples
-5. Scan Categories Table showing what the tool checks
-6. Project Structure visualization
-7. Sample Output to show users what to expect
-8. Contribution Guidelines section to encourage community involvement
-9. Professional Disclaimer for responsible usage
-10. Support Section with multiple contact options
+---
+
+## 🆘 Support & Contact
+
+* 📖 Documentation: `docs/`
+* 🐞 Issues: GitHub Issues
+* 💬 Discussions: GitHub Discussions
+* 📧 Email: **[vipulpal174@gmail.com](mailto:vipulpal174@gmail.com)**
+
+---
+
+⭐ **If this project helps you, please consider giving it a star!**
