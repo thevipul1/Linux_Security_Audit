@@ -120,7 +120,9 @@ sudo dpkg -i linux-security-audit.deb
 ```text
 1_Linux_hardening_and_security_audit
 ├── config
-│   └── rules.yaml
+│   ├── checks.yaml
+│   ├── rules.yaml
+│   └── settings.yaml
 ├── debug_scan.py
 ├── main.py
 ├── modules
@@ -144,17 +146,28 @@ sudo dpkg -i linux-security-audit.deb
 │   ├── logs
 │   │   └── audit.log
 │   └── reports
+│       ├── cybersecurity_audit.html
 │       ├── debug_scan.json
-│       ├── modern_scan.html
 │       └── secure_scan.json
 ├── readme.txt
 ├── remediations
 │   ├── audit_suid_files.sh
 │   ├── basic_hardening.sh
+│   ├── close_unused_ports.sh
+│   ├── configure_fail2ban.sh
+│   ├── disable_ip_forwarding.sh
+│   ├── enforce_password_policy.sh
+│   ├── harden_kernel.sh
+│   ├── harden_ssh.sh
 │   ├── install_unattended_upgrades.sh
+│   ├── investigate_suspicious_processes.sh
 │   ├── secure_permissions.sh
+│   ├── secure_sudo.sh
 │   ├── ssh_disable_root.sh
-│   └── ufw_enable.sh
+│   ├── ufw_enable.sh
+│   └── update_vulnerable_packages.sh
+├── reports
+│   └── scan_20251110_203320.html
 ├── requirements.txt
 ├── rules
 │   └── __init__.py
@@ -162,6 +175,7 @@ sudo dpkg -i linux-security-audit.deb
 ├── templates
 └── tests
     └── __init__.py
+
 ```
 
 ---
