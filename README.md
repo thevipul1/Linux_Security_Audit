@@ -55,6 +55,12 @@ python src/main.py --scan comprehensive --auto-fix
 # Generate HTML report only
 python src/main.py --scan basic --report html
 
+# Test the scanner works
+sudo python3 main.py --scan --format text
+
+# Generate comprehensive cybersecurity report
+sudo python3 main.py --scan --format html --output outputs/reports/cybersecurity_audit.html
+
 # Custom profile with PDF output
 python src/main.py --profile webserver --report pdf
 ```
