@@ -55,6 +55,12 @@ python src/main.py --scan comprehensive --auto-fix
 # Generate HTML report only
 python src/main.py --scan basic --report html
 
+# Test the scanner works
+sudo python3 main.py --scan --format text
+
+# Generate comprehensive cybersecurity report
+sudo python3 main.py --scan --format html --output outputs/reports/cybersecurity_audit.html
+
 # Custom profile with PDF output
 python src/main.py --profile webserver --report pdf
 ```
@@ -118,20 +124,65 @@ sudo dpkg -i linux-security-audit.deb
 ## 📁 Project Structure
 
 ```text
-Linux_Security_Audit/
-├── config/              # Rules & profiles
-│   └── rules.yaml
-├── modules/             # Core engine
-│   ├── scanner.py
-│   ├── remediator.py
-│   ├── reporter.py
-│   └── utils.py
-├── remediations/        # Safe fix scripts
-├── outputs/             # Logs & reports
-├── templates/           # Report templates
-├── tests/               # Unit tests
-├── src/main.py          # Entry point
-└── requirements.txt
+
+1_Linux_hardening_and_security_audit
+├── config
+│   ├── checks.yaml
+│   ├── rules.yaml
+│   └── settings.yaml
+├── debug_scan.py
+├── main.py
+├── modules
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-312.pyc
+│   │   ├── __init__.cpython-313.pyc
+│   │   ├── remediator.cpython-312.pyc
+│   │   ├── remediator.cpython-313.pyc
+│   │   ├── reporter.cpython-312.pyc
+│   │   ├── reporter.cpython-313.pyc
+│   │   ├── scanner.cpython-312.pyc
+│   │   ├── scanner.cpython-313.pyc
+│   │   ├── utils.cpython-312.pyc
+│   │   └── utils.cpython-313.pyc
+│   ├── remediator.py
+│   ├── reporter.py
+│   ├── scanner.py
+│   └── utils.py
+├── outputs
+│   ├── logs
+│   │   └── audit.log
+│   └── reports
+│       ├── cybersecurity_audit.html
+│       ├── debug_scan.json
+│       └── secure_scan.json
+├── readme.txt
+├── remediations
+│   ├── audit_suid_files.sh
+│   ├── basic_hardening.sh
+│   ├── close_unused_ports.sh
+│   ├── configure_fail2ban.sh
+│   ├── disable_ip_forwarding.sh
+│   ├── enforce_password_policy.sh
+│   ├── harden_kernel.sh
+│   ├── harden_ssh.sh
+│   ├── install_unattended_upgrades.sh
+│   ├── investigate_suspicious_processes.sh
+│   ├── secure_permissions.sh
+│   ├── secure_sudo.sh
+│   ├── ssh_disable_root.sh
+│   ├── ufw_enable.sh
+│   └── update_vulnerable_packages.sh
+├── reports
+│   └── scan_20251110_203320.html
+├── requirements.txt
+├── rules
+│   └── __init__.py
+├── safety_check.py
+├── templates
+└── tests
+    └── __init__.py
+
 ```
 
 ---
