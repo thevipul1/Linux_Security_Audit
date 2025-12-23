@@ -213,7 +213,7 @@ sudo dpkg -i linux-security-audit.deb
 ---
 
 ## 📊 Flowchart
-```
+```mermaid
 flowchart TD
     subgraph "👤 User Input"
         A[🚀 Start Program<br/>python main.py] --> B{🎯 Select Mode}
