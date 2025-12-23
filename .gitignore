@@ -1,7 +1,7 @@
-# Python cache
 __pycache__/
 *.pyc
 
-# Generated outputs
-outputs/logs/
-outputs/reports/
+outputs/logs/*
+outputs/reports/*
+!outputs/logs/.gitkeep
+!outputs/reports/.gitkeep
