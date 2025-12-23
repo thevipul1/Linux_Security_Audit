@@ -1,10 +1,52 @@
 import json
 import os
 import tempfile
+import base64
 from datetime import datetime
 from jinja2 import Template
 
 class ReportGenerator:
+    def __init__(self, logo_path="/home/darksaturn/Documents/Project/1_Linux_hardening_and_security_audit/assets/main_logo_1.png"):
+        """Initialize ReportGenerator with company logo"""
+        self.logo_path = logo_path
+        self.logo_html = self._generate_logo_html()
+    
+    def _generate_logo_html(self):
+        """Generate HTML for company logo using base64 encoding"""
+        if not self.logo_path or not os.path.exists(self.logo_path):
+            print(f"⚠️  Logo file not found: {self.logo_path}")
+            return ""
+        
+        try:
+            # Read and encode as base64
+            with open(self.logo_path, "rb") as image_file:
+                encoded_string = base64.b64encode(image_file.read()).decode()
+            
+            # Get file extension
+            extension = self.logo_path.split('.')[-1].lower()
+            
+            # Determine MIME type
+            mime_types = {
+                'png': 'image/png',
+                'jpg': 'image/jpeg',
+                'jpeg': 'image/jpeg',
+                'svg': 'image/svg+xml',
+                'gif': 'image/gif',
+                'webp': 'image/webp'
+            }
+            mime_type = mime_types.get(extension, 'image/png')
+            
+            # Generate HTML for embedded logo
+            return f'''
+            <div class="company-logo">
+                <img src="data:{mime_type};base64,{encoded_string}" alt="Company Logo">
+                <div class="logo-glow"></div>
+            </div>
+            '''
+        except Exception as e:
+            print(f"⚠️  Error loading logo: {e}")
+            return ""
+    
     def generate(self, results, format='text', output_file=None):
         """Generate report in specified format"""
         timestamp = datetime.now().isoformat()
@@ -218,7 +260,7 @@ class ReportGenerator:
         return recommendations
     
     def _generate_html(self, results, timestamp):
-        """Generate modern HTML report with enterprise-grade features and animations"""
+        """Generate modern HTML report with company logo"""
         template_str = '''
 <!DOCTYPE html>
 <html lang="en">
@@ -263,6 +305,86 @@ class ReportGenerator:
             line-height: 1.6;
             overflow-x: hidden;
         }
+        
+/* Company Logo Styles */
+.company-logo {
+    position: absolute;
+    top: 25px;
+    left: 30px;
+    z-index: 1000;
+    animation: logoSlideIn 0.8s ease-out 0.3s both;
+    filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.5));
+    /* Increased container width for 100% larger logo (50% + 50%) */
+    max-width: 450px; /* 300px × 1.5 = 450px (or 200px × 2.25 = 450px) */
+}
+
+.company-logo img {
+    height: 147px; /* 98px × 1.5 = 147px (or 65px × 2.25 = 146.25px) */
+    max-width: 450px; /* 300px × 1.5 = 450px (or 200px × 2.25 = 450px) */
+    object-fit: contain;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 15px; /* 12px × 1.25 = 15px */
+    background: rgba(255, 255, 255, 0.03);
+    padding: 22.5px; /* 15px × 1.5 = 22.5px (or 10px × 2.25 = 22.5px) */
+    border: 2px solid rgba(255, 255, 255, 0.08); /* Slightly thicker border */
+    box-shadow: 
+        0 12px 48px rgba(0, 0, 0, 0.4), /* Increased shadow for larger logo */
+        inset 0 2px 0 rgba(255, 255, 255, 0.1); /* Increased inset shadow */
+}
+
+/* Update animation to slide in from left instead of right */
+@keyframes logoSlideIn {
+    0% { 
+        opacity: 0; 
+        transform: translateX(-50px) translateY(-25px) rotate(-5deg); /* Increased movement for larger logo */
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateX(0) translateY(0) rotate(0);
+    }
+}
+
+/* Updated hover effects for larger logo */
+.company-logo:hover img {
+    transform: translateY(-5px) scale(1.04); /* Slightly increased hover effect */
+    box-shadow: 
+        0 20px 60px rgba(0, 102, 204, 0.3), /* Enhanced shadow */
+        0 0 0 2px rgba(77, 148, 255, 0.25), /* Thicker glow border */
+        inset 0 2px 0 rgba(255, 255, 255, 0.2); /* Enhanced inset */
+    border-color: rgba(77, 148, 255, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.logo-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%; /* 135% × 1.1 = ~150% */
+    height: 150%; /* 135% × 1.1 = ~150% */
+    background: radial-gradient(circle, rgba(77, 148, 255, 0.2) 0%, transparent 65%); /* Stronger glow */
+    transform: translate(-50%, -50%);
+    filter: blur(25px); /* 18px × 1.4 = ~25px */
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.5s ease;
+    border-radius: 25px; /* 18px × 1.4 = ~25px */
+}
+
+.company-logo:hover .logo-glow {
+    opacity: 0.7; /* Slightly more visible */
+    animation: logoGlowPulse 2s ease-in-out infinite;
+}
+
+@keyframes logoGlowPulse {
+    0%, 100% { 
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% { 
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(1.08); /* Slightly larger pulse */
+    }
+}
         
         .cyber-grid {
             position: fixed;
@@ -334,6 +456,7 @@ class ReportGenerator:
             position: relative;
             overflow: hidden;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 180px;
         }
         
         .header::before {
@@ -360,6 +483,8 @@ class ReportGenerator:
             z-index: 2;
             text-align: center;
             animation: headerContentFade 1s ease-out 0.3s both;
+            max-width: 800px;
+            margin: 0 auto;
         }
         
         @keyframes headerContentFade {
@@ -395,7 +520,7 @@ class ReportGenerator:
         }
         
         .header h1 {
-            font-size: 3em;
+            font-size: 2.8em;
             font-weight: 800;
             background: linear-gradient(135deg, #ffffff 0%, #a0c8ff 100%);
             -webkit-background-clip: text;
@@ -1153,11 +1278,25 @@ class ReportGenerator:
             .charts-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .company-logo {
+                top: 20px;
+                right: 20px;
+            }
+            
+            .company-logo img {
+                height: 50px;
+                max-width: 150px;
+            }
         }
         
         @media (max-width: 768px) {
             .container {
                 margin: 10px;
+            }
+            
+            .header {
+                padding: 30px 20px;
             }
             
             .header h1 {
@@ -1176,6 +1315,31 @@ class ReportGenerator:
             .control-group {
                 justify-content: center;
             }
+            
+            .company-logo {
+                position: relative;
+                top: 0;
+                right: 0;
+                text-align: center;
+                margin-bottom: 20px;
+                animation: logoSlideInMobile 0.8s ease-out 0.3s both;
+            }
+            
+            @keyframes logoSlideInMobile {
+                0% { 
+                    opacity: 0; 
+                    transform: translateY(-20px);
+                }
+                100% { 
+                    opacity: 1; 
+                    transform: translateY(0);
+                }
+            }
+            
+            .company-logo img {
+                height: 45px;
+                max-width: 180px;
+            }
         }
     </style>
 </head>
@@ -1186,6 +1350,9 @@ class ReportGenerator:
     <div class="container">
         <!-- Header -->
         <div class="header">
+            <!-- Company Logo -->
+            {{ logo_html }}
+            
             <div class="header-content">
                 <div class="logo">
                     <div class="logo-icon">
@@ -1427,7 +1594,7 @@ class ReportGenerator:
                 
                 <!-- Footer -->
                 <div class="footer">
-                    <p><strong>CyberShield Security Audit Tool v2.0</strong></p>
+                    <p><strong>CyberVor Security Audit Tool v2.0</strong></p>
                     <p>Enterprise-Grade Security Assessment & Compliance Reporting</p>
                     <p class="timestamp">Report generated on {{ timestamp }} | Confidential</p>
                 </div>
@@ -1663,5 +1830,58 @@ class ReportGenerator:
         return template.render(
             timestamp=timestamp,
             results=results,
-            summary=summary
+            summary=summary,
+            logo_html=self.logo_html
         )
+
+# Test function to verify logo integration
+def test_logo_integration():
+    """Test the logo integration"""
+    print("Testing logo integration...")
+    
+    # Test with actual logo path
+    reporter = ReportGenerator()
+    
+    # Create test results
+    test_results = [
+        {
+            'id': 'TEST-001',
+            'title': 'Test Security Check',
+            'status': 'PASS',
+            'severity': 'LOW',
+            'evidence': 'Test evidence for verification',
+            'remediation': 'Test remediation steps'
+        },
+        {
+            'id': 'TEST-002',
+            'title': 'Critical Security Issue',
+            'status': 'FAIL',
+            'severity': 'CRITICAL',
+            'evidence': 'Critical issue detected',
+            'remediation': 'Immediate action required'
+        }
+    ]
+    
+    # Generate test report
+    html_report = reporter.generate(test_results, format='html')
+    
+    # Save test report
+    test_output = "test_report_with_logo.html"
+    with open(test_output, "w") as f:
+        f.write(html_report)
+    
+    print(f"✓ Test report generated: {test_output}")
+    print(f"✓ Logo HTML included: {bool(reporter.logo_html)}")
+    
+    if reporter.logo_html:
+        print("✓ Logo should appear in top right corner of the report")
+    else:
+        print("✗ Logo not found. Please check the logo path.")
+        print(f"  Expected path: {reporter.logo_path}")
+        print(f"  File exists: {os.path.exists(reporter.logo_path)}")
+    
+    return test_output
+
+if __name__ == "__main__":
+    # Run test if script is executed directly
+    test_logo_integration()

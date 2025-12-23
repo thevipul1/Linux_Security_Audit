@@ -873,3 +873,358 @@ Security Score: 62.3/100
 
 2025-12-13 20:20:48,039 - INFO - Starting security scan...
 2025-12-13 20:20:48,428 - INFO - Scan completed. Report: outputs/reports/cybersecurity_audit.html
+2025-12-20 22:01:26,765 - INFO - Starting security scan...
+2025-12-20 22:01:27,969 - INFO - Scan completed. Report: Security Audit Report - 2025-12-20T22:01:27.969435
+==================================================
+
+✅ SSH-001: SSH Root Login Disabled
+   Status: PASS | Severity: HIGH
+   Evidence: PermitRootLogin no
+
+✅ NET-001: UFW Firewall Active
+   Status: PASS | Severity: HIGH
+   Evidence: Status: active
+
+✅ SYS-001: Unattended Upgrades Installed & Active
+   Status: PASS | Severity: MEDIUM
+   Evidence: Package installed, service active and enabled, configuration present
+
+✅ FILE-001: Unusual SUID Files
+   Status: PASS | Severity: MEDIUM
+   Evidence: No unusual SUID files found
+
+✅ FILE-002: World Writable Directories
+   Status: PASS | Severity: HIGH
+   Evidence: No world-writable directories found
+
+❌ AUTH-001: Password Policy Enforcement
+   Status: FAIL | Severity: MEDIUM
+   Evidence: PASS_MAX_DAYS too long: 99999 (should be <= 90); Password history not set to remember last 5 passwords; Minimum password length not enforced
+   Fix: remediations/enforce_password_policy.sh
+
+⚠️ AUTH-002: Sudo Security Configuration
+   Status: WARN | Severity: MEDIUM
+   Evidence: Sudo may not require password
+   Fix: remediations/secure_sudo.sh
+
+❌ KERN-001: Kernel Security Parameters
+   Status: FAIL | Severity: HIGH
+   Evidence: Reverse path filtering disabled (should be 1)
+   Fix: remediations/harden_kernel.sh
+
+⚠️ SSH-002: SSH Protocol Security
+   Status: WARN | Severity: MEDIUM
+   Evidence: SSH Protocol 2 not explicitly set
+   Fix: remediations/harden_ssh.sh
+
+✅ NET-002: IP Forwarding Disabled
+   Status: PASS | Severity: MEDIUM
+   Evidence: IP forwarding disabled
+
+✅ AUTH-003: Failed Login Monitoring
+   Status: PASS | Severity: LOW
+   Evidence: ✅ No failed login attempts detected
+
+❌ THREAT-001: Suspicious Processes Detection
+   Status: FAIL | Severity: HIGH
+   Evidence: 🚨 Found 87 suspicious processes: kthreadd (PID:2, User:root), kworker/R-rcu_gp (PID:4, User:root), kworker/R-sync_wq (PID:5, User:root)
+   Fix: remediations/investigate_suspicious_processes.sh
+
+⚠️ NET-003: Unnecessary Open Ports
+   Status: ERROR | Severity: MEDIUM
+   Evidence: Could not retrieve listening ports
+
+⚠️ VULN-001: CVE Vulnerability Assessment
+   Status: ERROR | Severity: HIGH
+   Evidence: Could not check for upgradable packages
+
+
+Summary: 7 passed, 3 failed, 2 warnings
+Security Score: 62.3/100
+
+2025-12-20 22:01:28,368 - INFO - Starting security scan...
+2025-12-20 22:01:29,419 - INFO - Scan completed. Report: outputs/reports/cybersecurity_audit.html
+2025-12-21 10:58:20,031 - INFO - Starting security scan...
+2025-12-21 10:58:20,632 - INFO - Scan completed. Report: Security Audit Report - 2025-12-21T10:58:20.632226
+==================================================
+
+✅ SSH-001: SSH Root Login Disabled
+   Status: PASS | Severity: HIGH
+   Evidence: PermitRootLogin no
+
+✅ NET-001: UFW Firewall Active
+   Status: PASS | Severity: HIGH
+   Evidence: Status: active
+
+✅ SYS-001: Unattended Upgrades Installed & Active
+   Status: PASS | Severity: MEDIUM
+   Evidence: Package installed, service active and enabled, configuration present
+
+✅ FILE-001: Unusual SUID Files
+   Status: PASS | Severity: MEDIUM
+   Evidence: No unusual SUID files found
+
+✅ FILE-002: World Writable Directories
+   Status: PASS | Severity: HIGH
+   Evidence: No world-writable directories found
+
+❌ AUTH-001: Password Policy Enforcement
+   Status: FAIL | Severity: MEDIUM
+   Evidence: PASS_MAX_DAYS too long: 99999 (should be <= 90); Password history not set to remember last 5 passwords; Minimum password length not enforced
+   Fix: remediations/enforce_password_policy.sh
+
+⚠️ AUTH-002: Sudo Security Configuration
+   Status: WARN | Severity: MEDIUM
+   Evidence: Sudo may not require password
+   Fix: remediations/secure_sudo.sh
+
+❌ KERN-001: Kernel Security Parameters
+   Status: FAIL | Severity: HIGH
+   Evidence: Reverse path filtering disabled (should be 1)
+   Fix: remediations/harden_kernel.sh
+
+⚠️ SSH-002: SSH Protocol Security
+   Status: WARN | Severity: MEDIUM
+   Evidence: SSH Protocol 2 not explicitly set
+   Fix: remediations/harden_ssh.sh
+
+✅ NET-002: IP Forwarding Disabled
+   Status: PASS | Severity: MEDIUM
+   Evidence: IP forwarding disabled
+
+✅ AUTH-003: Failed Login Monitoring
+   Status: PASS | Severity: LOW
+   Evidence: ✅ No failed login attempts detected
+
+❌ THREAT-001: Suspicious Processes Detection
+   Status: FAIL | Severity: HIGH
+   Evidence: 🚨 Found 88 suspicious processes: kthreadd (PID:2, User:root), kworker/R-rcu_gp (PID:4, User:root), kworker/R-sync_wq (PID:5, User:root)
+   Fix: remediations/investigate_suspicious_processes.sh
+
+⚠️ NET-003: Unnecessary Open Ports
+   Status: ERROR | Severity: MEDIUM
+   Evidence: Could not retrieve listening ports
+
+⚠️ VULN-001: CVE Vulnerability Assessment
+   Status: ERROR | Severity: HIGH
+   Evidence: Could not check for upgradable packages
+
+
+Summary: 7 passed, 3 failed, 2 warnings
+Security Score: 62.3/100
+
+2025-12-21 10:58:20,757 - INFO - Starting security scan...
+2025-12-21 10:58:21,147 - INFO - Scan completed. Report: outputs/reports/cybersecurity_audit.html
+2025-12-21 11:02:01,415 - INFO - Starting security scan...
+2025-12-21 11:02:01,914 - INFO - Scan completed. Report: Security Audit Report - 2025-12-21T11:02:01.914486
+==================================================
+
+✅ SSH-001: SSH Root Login Disabled
+   Status: PASS | Severity: HIGH
+   Evidence: PermitRootLogin no
+
+✅ NET-001: UFW Firewall Active
+   Status: PASS | Severity: HIGH
+   Evidence: Status: active
+
+✅ SYS-001: Unattended Upgrades Installed & Active
+   Status: PASS | Severity: MEDIUM
+   Evidence: Package installed, service active and enabled, configuration present
+
+✅ FILE-001: Unusual SUID Files
+   Status: PASS | Severity: MEDIUM
+   Evidence: No unusual SUID files found
+
+✅ FILE-002: World Writable Directories
+   Status: PASS | Severity: HIGH
+   Evidence: No world-writable directories found
+
+❌ AUTH-001: Password Policy Enforcement
+   Status: FAIL | Severity: MEDIUM
+   Evidence: PASS_MAX_DAYS too long: 99999 (should be <= 90); Password history not set to remember last 5 passwords; Minimum password length not enforced
+   Fix: remediations/enforce_password_policy.sh
+
+⚠️ AUTH-002: Sudo Security Configuration
+   Status: WARN | Severity: MEDIUM
+   Evidence: Sudo may not require password
+   Fix: remediations/secure_sudo.sh
+
+❌ KERN-001: Kernel Security Parameters
+   Status: FAIL | Severity: HIGH
+   Evidence: Reverse path filtering disabled (should be 1)
+   Fix: remediations/harden_kernel.sh
+
+⚠️ SSH-002: SSH Protocol Security
+   Status: WARN | Severity: MEDIUM
+   Evidence: SSH Protocol 2 not explicitly set
+   Fix: remediations/harden_ssh.sh
+
+✅ NET-002: IP Forwarding Disabled
+   Status: PASS | Severity: MEDIUM
+   Evidence: IP forwarding disabled
+
+✅ AUTH-003: Failed Login Monitoring
+   Status: PASS | Severity: LOW
+   Evidence: ✅ No failed login attempts detected
+
+❌ THREAT-001: Suspicious Processes Detection
+   Status: FAIL | Severity: HIGH
+   Evidence: 🚨 Found 88 suspicious processes: kthreadd (PID:2, User:root), kworker/R-rcu_gp (PID:4, User:root), kworker/R-sync_wq (PID:5, User:root)
+   Fix: remediations/investigate_suspicious_processes.sh
+
+⚠️ NET-003: Unnecessary Open Ports
+   Status: ERROR | Severity: MEDIUM
+   Evidence: Could not retrieve listening ports
+
+⚠️ VULN-001: CVE Vulnerability Assessment
+   Status: ERROR | Severity: HIGH
+   Evidence: Could not check for upgradable packages
+
+
+Summary: 7 passed, 3 failed, 2 warnings
+Security Score: 62.3/100
+
+2025-12-21 11:02:02,005 - INFO - Starting security scan...
+2025-12-21 11:02:02,368 - INFO - Scan completed. Report: outputs/reports/cybersecurity_audit.html
+2025-12-21 20:04:37,107 - INFO - Starting security scan...
+2025-12-21 20:04:37,678 - INFO - Scan completed. Report: Security Audit Report - 2025-12-21T20:04:37.677985
+==================================================
+
+✅ SSH-001: SSH Root Login Disabled
+   Status: PASS | Severity: HIGH
+   Evidence: PermitRootLogin no
+
+✅ NET-001: UFW Firewall Active
+   Status: PASS | Severity: HIGH
+   Evidence: Status: active
+
+✅ SYS-001: Unattended Upgrades Installed & Active
+   Status: PASS | Severity: MEDIUM
+   Evidence: Package installed, service active and enabled, configuration present
+
+✅ FILE-001: Unusual SUID Files
+   Status: PASS | Severity: MEDIUM
+   Evidence: No unusual SUID files found
+
+✅ FILE-002: World Writable Directories
+   Status: PASS | Severity: HIGH
+   Evidence: No world-writable directories found
+
+❌ AUTH-001: Password Policy Enforcement
+   Status: FAIL | Severity: MEDIUM
+   Evidence: PASS_MAX_DAYS too long: 99999 (should be <= 90); Password history not set to remember last 5 passwords; Minimum password length not enforced
+   Fix: remediations/enforce_password_policy.sh
+
+⚠️ AUTH-002: Sudo Security Configuration
+   Status: WARN | Severity: MEDIUM
+   Evidence: Sudo may not require password
+   Fix: remediations/secure_sudo.sh
+
+❌ KERN-001: Kernel Security Parameters
+   Status: FAIL | Severity: HIGH
+   Evidence: Reverse path filtering disabled (should be 1)
+   Fix: remediations/harden_kernel.sh
+
+⚠️ SSH-002: SSH Protocol Security
+   Status: WARN | Severity: MEDIUM
+   Evidence: SSH Protocol 2 not explicitly set
+   Fix: remediations/harden_ssh.sh
+
+✅ NET-002: IP Forwarding Disabled
+   Status: PASS | Severity: MEDIUM
+   Evidence: IP forwarding disabled
+
+✅ AUTH-003: Failed Login Monitoring
+   Status: PASS | Severity: LOW
+   Evidence: ✅ No failed login attempts detected
+
+❌ THREAT-001: Suspicious Processes Detection
+   Status: FAIL | Severity: HIGH
+   Evidence: 🚨 Found 99 suspicious processes: kthreadd (PID:2, User:root), kworker/R-rcu_gp (PID:4, User:root), kworker/R-sync_wq (PID:5, User:root)
+   Fix: remediations/investigate_suspicious_processes.sh
+
+⚠️ NET-003: Unnecessary Open Ports
+   Status: ERROR | Severity: MEDIUM
+   Evidence: Could not retrieve listening ports
+
+⚠️ VULN-001: CVE Vulnerability Assessment
+   Status: ERROR | Severity: HIGH
+   Evidence: Could not check for upgradable packages
+
+
+Summary: 7 passed, 3 failed, 2 warnings
+Security Score: 62.3/100
+
+2025-12-21 20:04:37,764 - INFO - Starting security scan...
+2025-12-21 20:04:38,135 - INFO - Scan completed. Report: outputs/reports/cybersecurity_audit.html
+2025-12-21 20:27:40,369 - INFO - Starting security scan...
+2025-12-21 20:27:40,876 - INFO - Scan completed. Report: Security Audit Report - 2025-12-21T20:27:40.876560
+==================================================
+
+✅ SSH-001: SSH Root Login Disabled
+   Status: PASS | Severity: HIGH
+   Evidence: PermitRootLogin no
+
+✅ NET-001: UFW Firewall Active
+   Status: PASS | Severity: HIGH
+   Evidence: Status: active
+
+✅ SYS-001: Unattended Upgrades Installed & Active
+   Status: PASS | Severity: MEDIUM
+   Evidence: Package installed, service active and enabled, configuration present
+
+✅ FILE-001: Unusual SUID Files
+   Status: PASS | Severity: MEDIUM
+   Evidence: No unusual SUID files found
+
+✅ FILE-002: World Writable Directories
+   Status: PASS | Severity: HIGH
+   Evidence: No world-writable directories found
+
+❌ AUTH-001: Password Policy Enforcement
+   Status: FAIL | Severity: MEDIUM
+   Evidence: PASS_MAX_DAYS too long: 99999 (should be <= 90); Password history not set to remember last 5 passwords; Minimum password length not enforced
+   Fix: remediations/enforce_password_policy.sh
+
+⚠️ AUTH-002: Sudo Security Configuration
+   Status: WARN | Severity: MEDIUM
+   Evidence: Sudo may not require password
+   Fix: remediations/secure_sudo.sh
+
+❌ KERN-001: Kernel Security Parameters
+   Status: FAIL | Severity: HIGH
+   Evidence: Reverse path filtering disabled (should be 1)
+   Fix: remediations/harden_kernel.sh
+
+⚠️ SSH-002: SSH Protocol Security
+   Status: WARN | Severity: MEDIUM
+   Evidence: SSH Protocol 2 not explicitly set
+   Fix: remediations/harden_ssh.sh
+
+✅ NET-002: IP Forwarding Disabled
+   Status: PASS | Severity: MEDIUM
+   Evidence: IP forwarding disabled
+
+✅ AUTH-003: Failed Login Monitoring
+   Status: PASS | Severity: LOW
+   Evidence: ✅ No failed login attempts detected
+
+❌ THREAT-001: Suspicious Processes Detection
+   Status: FAIL | Severity: HIGH
+   Evidence: 🚨 Found 95 suspicious processes: kthreadd (PID:2, User:root), kworker/R-rcu_gp (PID:4, User:root), kworker/R-sync_wq (PID:5, User:root)
+   Fix: remediations/investigate_suspicious_processes.sh
+
+⚠️ NET-003: Unnecessary Open Ports
+   Status: ERROR | Severity: MEDIUM
+   Evidence: Could not retrieve listening ports
+
+⚠️ VULN-001: CVE Vulnerability Assessment
+   Status: ERROR | Severity: HIGH
+   Evidence: Could not check for upgradable packages
+
+
+Summary: 7 passed, 3 failed, 2 warnings
+Security Score: 62.3/100
+
+2025-12-21 20:27:40,973 - INFO - Starting security scan...
+2025-12-21 20:27:41,318 - INFO - Scan completed. Report: outputs/reports/cybersecurity_audit.html
