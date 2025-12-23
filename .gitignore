@@ -3,5 +3,5 @@ __pycache__/
 
 outputs/logs/*
 outputs/reports/*
-!outputs/logs/.gitkeep
-!outputs/reports/.gitkeep
+!outputs/logs/sample_*
+!outputs/reports/sample_*
