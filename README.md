@@ -7,7 +7,10 @@
 **Linux Security Audit** is an automated, production‑ready security scanner for Linux systems that identifies **common misconfigurations**, optionally **remediates issues**, and generates **professional reports** suitable for audits and compliance reviews.
 
 ---
+## 📘 Documentation
+[Download Full Project Documentation (PDF)](docs/Documentation_1_Linux_Hardening_Security_Audit.pdf)
 
+---
 ## ✨ Highlights
 
 * **Comprehensive Audits** — SSH, password policies, file permissions, kernel parameters, logging, and more
