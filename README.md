@@ -210,7 +210,63 @@ sudo dpkg -i linux-security-audit.deb
   ]
 }
 ```
+---
 
+## 📊 Flowchart
+```mermaid
+flowchart TD
+    subgraph "👤 User Input"
+        A[🚀 Start Program<br/>python main.py] --> B{🎯 Select Mode}
+        B --> C[🔍 Scan Only]
+        B --> D[🔧 Scan & Fix]
+        B --> E[📖 Help]
+    end
+    
+    subgraph "⚙️ Configuration Phase"
+        C --> F[📁 Load Config Files]
+        D --> F
+        F --> G[⚙️ checks.yaml<br/>⚙️ rules.yaml<br/>⚙️ settings.yaml]
+    end
+    
+    subgraph "🔎 Scanning Phase"
+        G --> H[🔬 Execute Security Checks]
+        H --> I[SSH Security]
+        H --> J[Firewall Status]
+        H --> K[Password Policy]
+        H --> L[...20+ Checks]
+        
+        I --> M[📊 Collect Results]
+        J --> M
+        K --> M
+        L --> M
+    end
+    
+    subgraph "📊 Analysis Phase"
+        M --> N{📈 Risk Assessment}
+        N -->|High Risk| O[🔴 Critical]
+        N -->|Medium Risk| P[🟡 Warning]
+        N -->|Low Risk| Q[🟢 Info]
+        N -->|Pass| R[✅ Passed]
+    end
+    
+    subgraph "🛠️ Remediation Phase"
+        O --> S[🚨 Apply Critical Fixes]
+        P --> T[⚠️ Apply Recommended Fixes]
+        S --> U[🔄 Run Remediation Scripts]
+        T --> U
+        U --> V[🔧 basic_hardening.sh<br/>🔧 harden_ssh.sh<br/>🔧 15+ scripts]
+    end
+    
+    subgraph "📁 Output Phase"
+        M --> W[📄 Generate Reports]
+        U --> X[✅ Verify Fixes]
+        W --> Y[🌐 HTML Report<br/>outputs/reports/]
+        X --> Y
+        Y --> Z[📊 JSON Data<br/>📋 Audit Logs]
+    end
+    
+    E --> AA[📚 Show Documentation<br/>Available commands]
+```
 ---
 
 ## 🤝 Contributing
