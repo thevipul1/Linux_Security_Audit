@@ -8,7 +8,7 @@
 
 ---
 ## 📘 Documentation
-[Download Full Project Documentation (PDF)](docs/Documentation_1_Linux_Hardening_Security_Audit.pdf)
+[Download Full Project Documentation (PDF)](docs/1_Linux_Hardening_Security_Audit_docs.pdf)
 
 ---
 ## ✨ Highlights
